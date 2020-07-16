@@ -120,6 +120,14 @@ RUN cd /root && \
     apt-get -y autoclean && apt-get -y autoremove && \
     apt-get -y purge $(dpkg --get-selections | grep deinstall | sed s/deinstall//g) && \
     rm -rf /var/lib/apt/lists/*  && \
+    apt-get -y install \
+        firefox firefox-locale-ko \
+        fcitx fcitx-hangul fonts-nanum \
+        language-pack-ko language-pack-gnome-ko && \
+    locale-gen ko_KR.UTF-8 && \
+    update-locale LANG=ko_KR.UTF-8 && \
+    fc-cache --force && \
+    apt-get -y autoclean && apt-get -y autoremove && \
     echo "mate-session" > /etc/skel/.xsession && \
     sed -i '/TerminalServerUsers/d' /etc/xrdp/sesman.ini  && \
     sed -i '/TerminalServerAdmins/d' /etc/xrdp/sesman.ini  && \
